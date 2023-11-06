@@ -13,6 +13,14 @@ $(document).keypress((event) => {
     nextSequence();
 });
 
+$("#level-title").click((event) => {
+    if(level!=0){
+        return false;
+    }
+    nextSequence();
+});
+
+
 var clickedbuttons = 0;
 function reply(x){
     userClickedPattern.push(x);
