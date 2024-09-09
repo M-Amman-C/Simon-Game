@@ -15,27 +15,32 @@ $(document).keypress((event) => {
 
 var clickedbuttons = 0;
 function reply(x){
-    userClickedPattern.push(x);
-    var len = userClickedPattern.length;
-    animatePress(x);
-    var audio = new Audio("./sounds/"+x+".mp3");
-    audio.play();
-    if (x!=gamePattern[clickedbuttons]){
-        var audio = new Audio("./sounds/wrong.mp3");
+    if (level==0){
+        nextSequence();
+    }
+    else{
+        userClickedPattern.push(x);
+        var len = userClickedPattern.length;
+        animatePress(x);
+        var audio = new Audio("./sounds/"+x+".mp3");
         audio.play();
-        $("body").addClass("game-over");
-        $("#level-title").text("Game over! Press any key");
-        setTimeout(() => {
-            $("body").removeClass("game-over");
-        },2000);
-        restart();
+        if (x!=gamePattern[clickedbuttons]){
+            var audio = new Audio("./sounds/wrong.mp3");
+            audio.play();
+            $("body").addClass("game-over");
+            $("#level-title").text("Game over! Press any key");
+            setTimeout(() => {
+                $("body").removeClass("game-over");
+            },2000);
+            restart();
+        }
+        else if(gamePattern.length == userClickedPattern.length){
+            setTimeout(() => {
+                nextSequence();
+            },1000)
+        }
+        clickedbuttons = clickedbuttons+1;
     }
-    else if(gamePattern.length == userClickedPattern.length){
-        setTimeout(() => {
-            nextSequence();
-        },1000)
-    }
-    clickedbuttons = clickedbuttons+1;
 }
 
 
